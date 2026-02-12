@@ -541,6 +541,29 @@ body {
     opacity: 0.4;
 }
 
+/* ---- Copyright ---- */
+#copyright {
+    position: fixed;
+    bottom: calc(var(--controls-h) + 8px);
+    left: calc(var(--panel-left-w) + 12px);
+    z-index: 50;
+}
+
+#copyright a {
+    font-family: var(--font-hud);
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 0.2s, color 0.2s;
+}
+
+#copyright a:hover {
+    opacity: 1;
+    color: var(--cyan-dim);
+}
+
 /* ---- Scanline overlay (subtle) ---- */
 #canvas-container::after {
     content: '';
