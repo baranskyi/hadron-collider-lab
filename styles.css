@@ -1,0 +1,558 @@
+/* ============================================
+   HADRON COLLIDER LAB — HUD / Sci-Fi FUI Theme
+   ============================================ */
+
+:root {
+    --bg-deep: #0a0a1a;
+    --bg-panel: rgba(10, 15, 30, 0.88);
+    --border-cyan: rgba(0, 255, 255, 0.15);
+    --border-cyan-bright: rgba(0, 255, 255, 0.4);
+    --cyan: #00ffff;
+    --cyan-dim: #00aaaa;
+    --orange: #ff6600;
+    --orange-glow: rgba(255, 102, 0, 0.4);
+    --text-main: #e0e8f0;
+    --text-muted: #6a7a8a;
+    --text-bright: #ffffff;
+
+    /* Particle colors */
+    --p-photon: #ffd700;
+    --p-electron: #00bfff;
+    --p-muon: #00ff88;
+    --p-quark: #ff4444;
+    --p-neutrino: #aa66ff;
+    --p-wz: #ff00ff;
+    --p-higgs: #fffacd;
+    --p-gluon: #ff8800;
+    --p-tau: #00ccaa;
+
+    --font-hud: 'Share Tech Mono', monospace;
+    --font-data: 'Fira Code', monospace;
+
+    --panel-left-w: 220px;
+    --panel-right-w: 280px;
+    --hud-h: 44px;
+    --controls-h: 56px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg-deep);
+    color: var(--text-main);
+    font-family: var(--font-hud);
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* ---- HUD Top Bar ---- */
+#hud-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--hud-h);
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--border-cyan);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 100;
+}
+
+.hud-title {
+    font-size: 16px;
+    letter-spacing: 4px;
+    color: var(--cyan);
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.hud-stats {
+    display: flex;
+    gap: 24px;
+    font-family: var(--font-data);
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.hud-stats span {
+    padding: 2px 8px;
+    border: 1px solid var(--border-cyan);
+    border-radius: 2px;
+}
+
+/* ---- Left Panel: Presets ---- */
+#preset-panel {
+    position: fixed;
+    top: var(--hud-h);
+    left: 0;
+    bottom: var(--controls-h);
+    width: var(--panel-left-w);
+    background: var(--bg-panel);
+    border-right: 1px solid var(--border-cyan);
+    padding: 16px;
+    z-index: 90;
+    overflow-y: auto;
+}
+
+#preset-panel h2 {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--cyan-dim);
+    margin-bottom: 16px;
+}
+
+.preset-card {
+    background: rgba(0, 255, 255, 0.03);
+    border: 1px solid var(--border-cyan);
+    border-radius: 4px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.preset-card:hover {
+    border-color: var(--border-cyan-bright);
+    background: rgba(0, 255, 255, 0.06);
+}
+
+.preset-card.active {
+    border-color: var(--cyan);
+    background: rgba(0, 255, 255, 0.08);
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.15);
+}
+
+.preset-name {
+    font-size: 13px;
+    color: var(--text-bright);
+    margin-bottom: 4px;
+}
+
+.preset-desc {
+    font-size: 10px;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.preset-energy {
+    font-family: var(--font-data);
+    font-size: 10px;
+    color: var(--cyan-dim);
+    margin-top: 4px;
+}
+
+/* ---- Right Panel: Particle Info ---- */
+#info-panel {
+    position: fixed;
+    top: var(--hud-h);
+    right: 0;
+    bottom: var(--controls-h);
+    width: var(--panel-right-w);
+    background: var(--bg-panel);
+    border-left: 1px solid var(--border-cyan);
+    padding: 16px;
+    z-index: 90;
+    overflow-y: auto;
+}
+
+#info-panel h2 {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--cyan-dim);
+    margin-bottom: 16px;
+}
+
+.particle-entry {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    margin-bottom: 4px;
+    border-radius: 3px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.particle-entry:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.particle-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.particle-symbol {
+    font-family: var(--font-data);
+    color: var(--text-bright);
+    min-width: 30px;
+}
+
+.particle-label {
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+#particle-detail {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-cyan);
+}
+
+#particle-detail h3 {
+    font-size: 14px;
+    color: var(--cyan);
+    margin-bottom: 12px;
+}
+
+.detail-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+.detail-row .label {
+    color: var(--text-muted);
+}
+
+.detail-row span:last-child {
+    font-family: var(--font-data);
+    color: var(--text-bright);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ---- 3D Canvas ---- */
+#canvas-container {
+    position: fixed;
+    top: var(--hud-h);
+    left: var(--panel-left-w);
+    right: var(--panel-right-w);
+    bottom: var(--controls-h);
+    z-index: 1;
+}
+
+#canvas-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* ---- Bottom Controls ---- */
+#controls-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--controls-h);
+    background: var(--bg-panel);
+    border-top: 1px solid var(--border-cyan);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 20px;
+    z-index: 100;
+}
+
+.btn-primary {
+    font-family: var(--font-hud);
+    font-size: 14px;
+    letter-spacing: 3px;
+    padding: 8px 28px;
+    background: var(--orange);
+    color: var(--text-bright);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 0 16px var(--orange-glow);
+}
+
+.btn-primary:hover {
+    background: #ff7722;
+    box-shadow: 0 0 24px var(--orange-glow);
+}
+
+.btn-primary:active {
+    transform: scale(0.97);
+}
+
+.btn-primary.running {
+    background: #cc5500;
+    box-shadow: none;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.btn-ctrl {
+    font-family: var(--font-hud);
+    font-size: 12px;
+    padding: 6px 14px;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-cyan);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.btn-ctrl:hover {
+    color: var(--cyan);
+    border-color: var(--border-cyan-bright);
+}
+
+.btn-ctrl.active {
+    color: var(--cyan);
+    border-color: var(--cyan);
+}
+
+.speed-control {
+    display: flex;
+    gap: 4px;
+}
+
+.btn-speed {
+    font-family: var(--font-data);
+    font-size: 10px;
+    padding: 4px 8px;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid transparent;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.btn-speed:hover {
+    color: var(--text-main);
+}
+
+.btn-speed.active {
+    color: var(--cyan);
+    border-color: var(--border-cyan-bright);
+}
+
+#speed-slider {
+    width: 100px;
+    accent-color: var(--cyan);
+    cursor: pointer;
+}
+
+#speed-display {
+    font-family: var(--font-data);
+    font-size: 12px;
+    color: var(--cyan);
+    min-width: 44px;
+    text-align: center;
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-cyan-bright);
+    border-radius: 2px;
+}
+
+/* ---- Particle 3D Labels (CSS2DRenderer) ---- */
+.particle-label-3d {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 0;
+    white-space: nowrap;
+    pointer-events: none;
+    background: none;
+    border: none;
+    text-shadow: 0 0 4px currentColor, 0 0 8px currentColor, 0 0 16px currentColor;
+    transform: translate(10px, -50%);
+    line-height: 1;
+}
+
+/* ---- Beam proton labels ---- */
+.beam-label-3d {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    padding: 0;
+    white-space: nowrap;
+    pointer-events: none;
+    background: none;
+    border: none;
+    text-shadow: 0 0 6px #ffffff, 0 0 12px #ffffff, 0 0 24px rgba(100,200,255,0.6);
+    transform: translate(14px, -50%);
+    line-height: 1;
+}
+
+/* ---- Event Log Panel ---- */
+#event-log {
+    position: fixed;
+    bottom: calc(var(--controls-h) + 12px);
+    right: calc(var(--panel-right-w) + 12px);
+    width: 320px;
+    max-height: 260px;
+    background: rgba(6, 8, 18, 0.88);
+    border: 1px solid rgba(0, 255, 255, 0.12);
+    border-radius: 4px;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.log-header {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--cyan-dim);
+    padding: 6px 10px;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.08);
+    flex-shrink: 0;
+}
+
+#log-entries {
+    flex: 1;
+    overflow-y: auto;
+    padding: 4px 0;
+    scroll-behavior: smooth;
+}
+
+.log-entry {
+    display: flex;
+    gap: 8px;
+    padding: 3px 10px;
+    font-size: 11px;
+    line-height: 1.4;
+    animation: logFadeIn 0.3s ease;
+}
+
+@keyframes logFadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.log-time {
+    font-family: var(--font-data);
+    color: var(--text-muted);
+    flex-shrink: 0;
+    min-width: 52px;
+    font-size: 10px;
+}
+
+.log-msg {
+    color: var(--text-main);
+}
+
+/* Log entry types */
+.log-entry.countdown .log-msg {
+    color: var(--orange);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.log-entry.collision .log-msg {
+    color: #ffffff;
+    font-weight: 600;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+}
+
+.log-entry.beam .log-msg {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.log-entry.decay .log-msg {
+    color: var(--cyan);
+}
+
+.log-entry.detect .log-msg {
+    color: var(--p-muon);
+}
+
+.log-entry.particle .log-msg {
+    color: var(--text-main);
+}
+
+.log-entry.energy .log-msg {
+    color: var(--p-photon);
+}
+
+.log-entry.system .log-msg {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.log-color-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-right: 3px;
+    vertical-align: middle;
+}
+
+/* ---- Detector Layer Labels ---- */
+.detector-layer-label {
+    font-family: 'Share Tech Mono', monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none;
+    line-height: 1.2;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.detector-layer-label .layer-abbr {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-shadow: 0 0 6px currentColor;
+    opacity: 0.7;
+}
+
+.detector-layer-label .layer-full {
+    font-size: 8px;
+    opacity: 0.4;
+}
+
+/* ---- Scanline overlay (subtle) ---- */
+#canvas-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 255, 0.008) 2px,
+        rgba(0, 255, 255, 0.008) 4px
+    );
+    z-index: 2;
+}

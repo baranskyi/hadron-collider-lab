@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hadron Collider Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- HUD Top Bar -->
+    <header id="hud-bar">
+        <div class="hud-title">HADRON COLLIDER LAB</div>
+        <div class="hud-stats">
+            <span id="hud-fps">60 FPS</span>
+            <span id="hud-particles">0 particles</span>
+            <span id="hud-energy">13.6 TeV</span>
+        </div>
+    </header>
+
+    <!-- Left Panel: Experiment Presets -->
+    <aside id="preset-panel">
+        <h2>EXPERIMENTS</h2>
+        <div id="preset-list"></div>
+    </aside>
+
+    <!-- 3D Canvas Container -->
+    <main id="canvas-container"></main>
+
+    <!-- Right Panel: Particle Info -->
+    <aside id="info-panel">
+        <h2>DETECTED PARTICLES</h2>
+        <div id="particle-list"></div>
+        <div id="particle-detail" class="hidden">
+            <h3 id="detail-name"></h3>
+            <div class="detail-grid">
+                <div class="detail-row"><span class="label">Mass</span><span id="detail-mass"></span></div>
+                <div class="detail-row"><span class="label">Charge</span><span id="detail-charge"></span></div>
+                <div class="detail-row"><span class="label">Spin</span><span id="detail-spin"></span></div>
+                <div class="detail-row"><span class="label">Lifetime</span><span id="detail-lifetime"></span></div>
+                <div class="detail-row"><span class="label">Type</span><span id="detail-type"></span></div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Event Log (bottom-right overlay on canvas) -->
+    <div id="event-log">
+        <div class="log-header">EVENT LOG</div>
+        <div id="log-entries"></div>
+    </div>
+
+    <!-- Bottom Controls -->
+    <footer id="controls-bar">
+        <button id="btn-collide" class="btn-primary">COLLIDE!</button>
+        <button id="btn-pause" class="btn-ctrl" title="Pause">⏸</button>
+        <div class="speed-control">
+            <button class="btn-speed" data-speed="0.05">0.05x</button>
+            <button class="btn-speed" data-speed="0.1">0.1x</button>
+            <button class="btn-speed" data-speed="0.25">0.25x</button>
+            <button class="btn-speed active" data-speed="1">1x</button>
+            <button class="btn-speed" data-speed="2">2x</button>
+        </div>
+        <input type="range" id="speed-slider" min="0.01" max="3" step="0.01" value="1">
+        <span id="speed-display">1.00x</span>
+        <button id="btn-reset" class="btn-ctrl" title="Reset">RESET</button>
+    </footer>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+    }
+    </script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>
